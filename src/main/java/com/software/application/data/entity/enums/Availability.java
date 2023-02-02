@@ -1,16 +1,16 @@
 package com.software.application.data.entity.enums;
 
-public enum UM {
-    BUG ("Buc"), KG ("Kg"), SET ("Set");
+public enum Availability {
+    COMING("Coming"), AVAILABLE("Available"), DISCONTINUED("Discontinued");
 
     private final String name;
 
-    UM(String name) {
+    private Availability(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return name().charAt(0) + name().substring(1).toLowerCase();
+        return name;
     }
 }

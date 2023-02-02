@@ -42,3 +42,25 @@
 .products-view .grid-wrapper {
   width: 100%;
 }
+
+@media (max-width: 550px) {
+
+  .product-form {
+    width: 100%;
+
+    /* Prevent text-fields from overflowing on narrow screens */
+    --vaadin-text-field-default-width: 6em;
+  }
+}
+
+.Available {
+  color: #2dd085;
+}
+
+.Coming {
+  color: #ffc66e;
+}
+
+.Discontinued {
+  color: #f54993;
+}

@@ -1,8 +1,11 @@
 package com.software.application.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.software.application.data.entity.enums.Availability;
 import com.software.application.data.entity.enums.UM;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 public class ProductDTO {
@@ -14,7 +17,7 @@ public class ProductDTO {
     private String name;
 
     @JsonProperty(value = "PRICE")
-    private Integer price;
+    private BigDecimal price = BigDecimal.ZERO;
 
     @JsonProperty(value = "CATEGORY")
     private String category;
@@ -22,6 +25,11 @@ public class ProductDTO {
     @JsonProperty(value = "DESCRIPTION")
     private String description;
 
-    @JsonProperty(value = "unitMeasure")
-    private UM unitMeasure;
+    @JsonProperty(value = "UNIT_MEASURE")
+    private UM unitMeasure = UM.BUG;
+
+    @JsonProperty(value = "STOCK_COUNT")
+    private int stockCount = 0;
+
+    private Availability availability = Availability.COMING;
 }

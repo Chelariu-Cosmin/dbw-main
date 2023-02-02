@@ -1,4 +1,4 @@
-package com.software.application.data.service;
+package com.software.application.data.service.summary;
 
 import com.software.application.data.entity.Product;
 import com.software.application.data.entity.dto.ProductDTO;

@@ -4,6 +4,7 @@ import com.software.application.data.entity.Product;
 import com.software.application.data.entity.dto.ProductDTO;
 import com.software.application.data.mappers.ProductMapper;
 import com.software.application.data.repositories.ProductRepository;
+import com.software.application.data.service.summary.IProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

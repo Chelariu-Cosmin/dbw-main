@@ -22,9 +22,8 @@ public class Customer extends AbstractEntity {
     private String fullName;
 
     @NotBlank
-    @Size(max = 20, message = "{bakery.phone.number.invalid}")
-
-    @Pattern(regexp = "^(\\+\\d+)?([ -]?\\d+){4,14}$", message = "{bakery.phone.number.invalid}")
+    @Size(max = 20)
+    @Pattern(regexp = "^(\\+\\d+)?([ -]?\\d+){4,14}$")
     private String phoneNumber;
 
     @Size(max = 255)

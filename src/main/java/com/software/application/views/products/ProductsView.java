@@ -2,7 +2,7 @@ package com.software.application.views.products;
 
 import com.software.application.MainLayout;
 import com.software.application.data.entity.dto.ProductDTO;
-import com.software.application.data.service.IProduct;
+import com.software.application.data.service.summary.IProduct;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.icon.Icon;

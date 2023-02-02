@@ -8,13 +8,11 @@ import com.software.application.views.about.AboutView;
 import com.software.application.views.dashboard.DashboardView;
 import com.software.application.views.persons.PersonsView;
 import com.software.application.views.products.ProductsView;
-import com.software.application.views.stockmanagement.StockManagementView;
 import com.software.application.views.user.AddUserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
@@ -79,20 +77,20 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("AddUser", AddUserView.class, "lab la-user"));
 
         }
-        if (accessChecker.hasAccess(PersonsView.class)) {
-            nav.addItem(new AppNavItem("Person", PersonsView.class, "la la-user"));
+        if (accessChecker.hasAccess (PersonsView.class)) {
+            nav.addItem (new AppNavItem ("Person", PersonsView.class, "la la-user"));
 
         }
-        if (accessChecker.hasAccess(ProductsView.class)) {
-            nav.addItem(new AppNavItem("Product", ProductsView.class, "la la-columns"));
+        if (accessChecker.hasAccess (ProductsView.class)) {
+            nav.addItem (new AppNavItem ("Product", ProductsView.class, "la la-columns"));
 
         }
-        if (accessChecker.hasAccess(StockManagementView.class)) {
-            nav.addItem(new AppNavItem("Stock Management", StockManagementView.class, "la la-columns"));
-
-        }
-        if (accessChecker.hasAccess(AboutView.class)) {
-            nav.addItem(new AppNavItem("About", AboutView.class, "la la-laugh"));
+//        if (accessChecker.hasAccess(StockManagementView.class)) {
+//            nav.addItem(new AppNavItem("Stock Management", StockManagementView.class, "la la-columns"));
+//
+//        }
+        if (accessChecker.hasAccess (AboutView.class)) {
+            nav.addItem (new AppNavItem ("About", AboutView.class, "la la-laugh"));
 
         }
 
@@ -125,9 +123,7 @@ public class MainLayout extends AppLayout {
             div.getElement().getStyle().set("align-items", "center");
             div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
             userName.add(div);
-            userName.getSubMenu().addItem("Sign out", e -> {
-                authenticatedUser.logout();
-            });
+            userName.getSubMenu().addItem("Sign out", e -> authenticatedUser.logout());
 
             layout.add(userMenu);
         } else {

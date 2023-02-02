@@ -1,7 +1,7 @@
 package com.software.application.data.mappers;
 
-import com.software.application.data.dto.ProductDTO;
 import com.software.application.data.entity.Product;
+import com.software.application.data.entity.dto.ProductDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;

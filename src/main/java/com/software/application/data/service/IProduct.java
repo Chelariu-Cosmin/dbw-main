@@ -1,7 +1,7 @@
 package com.software.application.data.service;
 
-import com.software.application.data.dto.ProductDTO;
 import com.software.application.data.entity.Product;
+import com.software.application.data.entity.dto.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

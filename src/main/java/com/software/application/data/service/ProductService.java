@@ -1,7 +1,7 @@
 package com.software.application.data.service;
 
-import com.software.application.data.dto.ProductDTO;
 import com.software.application.data.entity.Product;
+import com.software.application.data.entity.dto.ProductDTO;
 import com.software.application.data.mappers.ProductMapper;
 import com.software.application.data.repositories.ProductRepository;
 import org.springframework.data.domain.Page;

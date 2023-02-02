@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -30,7 +29,7 @@ public class Product implements Serializable {
 
     @NotNull
     @Min(0)
-    private BigDecimal price = BigDecimal.ZERO;
+    private Integer price = 0;
 
     @NotNull
     private String category = "";

@@ -1,4 +1,4 @@
-package com.software.application.data.dto;
+package com.software.application.data.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.software.application.data.entity.enums.Availability;

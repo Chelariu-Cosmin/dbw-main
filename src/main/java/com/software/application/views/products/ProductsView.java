@@ -1,11 +1,8 @@
 package com.software.application.views.products;
 
 import com.software.application.MainLayout;
-import com.software.application.data.dto.ProductDTO;
-import com.software.application.data.entity.Product;
+import com.software.application.data.entity.dto.ProductDTO;
 import com.software.application.data.service.IProduct;
-import com.software.application.data.service.ProductService;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.icon.Icon;
@@ -17,11 +14,10 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+
 import javax.annotation.security.PermitAll;
 import java.text.DecimalFormat;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @PageTitle("Product")
 @Route(value = "product/:productsID?/:action?(edit)", layout = MainLayout.class)

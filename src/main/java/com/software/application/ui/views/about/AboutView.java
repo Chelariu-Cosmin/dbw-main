@@ -1,4 +1,4 @@
-package com.software.application.views.dashboard;
+package com.software.application.ui.views.about;
 
 import com.software.application.MainLayout;
 import com.vaadin.flow.component.html.H2;
@@ -7,17 +7,15 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 
-@PageTitle("Dashboard")
-@Route(value = "dashboard", layout = MainLayout.class)
-@RouteAlias(value = "dashboard", layout = MainLayout.class)
-@RolesAllowed("ADMIN")
-public class DashboardView extends VerticalLayout {
+@PageTitle("About")
+@Route(value = "", layout = MainLayout.class)
+@PermitAll
+public class AboutView extends VerticalLayout {
 
-    public DashboardView() {
+    public AboutView() {
         setSpacing(false);
 
         Image img = new Image("images/empty-plant.png", "placeholder plant");

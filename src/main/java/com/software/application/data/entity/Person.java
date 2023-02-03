@@ -4,15 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.*;
+import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@MappedSuperclass
 public class Person extends AbstractEntity {
 
     @NotEmpty
@@ -25,11 +24,23 @@ public class Person extends AbstractEntity {
     @NotEmpty
     private String email = "";
 
-    @NotEmpty
+    @NotBlank
+    @Size(max = 20)
+    @Pattern(regexp = "^(\\+\\d+)?([ -]?\\d+){4,14}$")
     private String phone = "";
 
-    private LocalDate dateOfBirth;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass () != o.getClass ()) return false;
+        if (!super.equals (o)) return false;
+        Person person = (Person) o;
+        return Objects.equals (firstName, person.firstName) && Objects.equals (lastName, person.lastName)
+                && Objects.equals (email, person.email) && Objects.equals (phone, person.phone);
+    }
 
-    @NotEmpty
-    private String occupation = "";
+    @Override
+    public int hashCode() {
+        return Objects.hash (super.hashCode (), firstName, lastName, email, phone);
+    }
 }

@@ -1,4 +1,4 @@
-package com.software.application.views.user;
+package com.software.application.ui.views.user;
 
 import com.software.application.MainLayout;
 import com.software.application.data.entity.User;

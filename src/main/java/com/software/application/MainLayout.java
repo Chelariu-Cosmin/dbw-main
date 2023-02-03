@@ -4,12 +4,11 @@ import com.software.application.components.appnav.AppNav;
 import com.software.application.components.appnav.AppNavItem;
 import com.software.application.data.entity.User;
 import com.software.application.security.AuthenticatedUser;
-import com.software.application.views.about.AboutView;
-import com.software.application.views.dashboard.DashboardView;
-import com.software.application.views.persons.PersonsView;
-import com.software.application.views.products.ProductsView;
-import com.software.application.views.storefront.StoreFrontView;
-import com.software.application.views.user.AddUserView;
+import com.software.application.ui.views.about.AboutView;
+import com.software.application.ui.views.dashboard.DashboardView;
+import com.software.application.ui.views.employees.EmployeesView;
+import com.software.application.ui.views.products.ProductsView;
+import com.software.application.ui.views.user.AddUserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -78,18 +77,18 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("AddUser", AddUserView.class, "lab la-user"));
 
         }
-        if (accessChecker.hasAccess (PersonsView.class)) {
-            nav.addItem (new AppNavItem ("Person", PersonsView.class, "la la-user"));
+        if (accessChecker.hasAccess (EmployeesView.class)) {
+            nav.addItem (new AppNavItem ("Employee", EmployeesView.class, "la la-user"));
 
         }
         if (accessChecker.hasAccess (ProductsView.class)) {
-            nav.addItem (new AppNavItem ("Product", ProductsView.class, "la la-columns"));
+            nav.addItem (new AppNavItem ("Inventory", ProductsView.class, "la la-columns"));
 
         }
-        if (accessChecker.hasAccess(StoreFrontView.class)) {
-            nav.addItem(new AppNavItem("Store-Front", StoreFrontView.class, "la la-columns"));
-
-        }
+//        if (accessChecker.hasAccess(StoreFrontView.class)) {
+//            nav.addItem(new AppNavItem("Store-Front", StoreFrontView.class, "la la-columns"));
+//
+//        }
         if (accessChecker.hasAccess (AboutView.class)) {
             nav.addItem (new AppNavItem ("About", AboutView.class, "la la-laugh"));
 

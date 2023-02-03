@@ -1,8 +1,8 @@
-package com.software.application.views.persons;
+package com.software.application.ui.views.employees;
 
 import com.software.application.MainLayout;
-import com.software.application.data.entity.Person;
-import com.software.application.data.service.PersonService;
+import com.software.application.data.entity.Employee;
+import com.software.application.data.service.EmployeeService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
@@ -17,29 +17,29 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
 
-@PageTitle("Person")
-@Route(value = "person", layout = MainLayout.class)
+@PageTitle("Employee")
+@Route(value = "employee", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 @Uses(Icon.class)
-public class PersonsView extends VerticalLayout {
+public class EmployeesView extends VerticalLayout {
 
-    Grid<Person> grid = new Grid<> (Person.class);
+    Grid<Employee> grid = new Grid<> (Employee.class);
     TextField filterText = new TextField();
-    private final PersonService personService;
-    PersonForm form;
+    private final EmployeeService employeeService;
+    EmployeeForm form;
 
-    public PersonsView(PersonService PersonService) {
-        this.personService = PersonService;
-        addClassNames("person-view");
+    public EmployeesView(EmployeeService EmployeeService) {
+        this.employeeService = EmployeeService;
+        addClassNames("employee-view");
         setSizeFull();
         configureGrid ();
 
-        form = new PersonForm ();
+        form = new EmployeeForm ();
         form.setWidth ("25em");
 
-        form.addListener (PersonForm.SaveEvent.class, this::savePerson);
-        form.addListener (PersonForm.DeleteEvent.class, this::deletePerson);
-        form.addListener (PersonForm.CloseEvent.class, e-> closeEditor ());
+        form.addListener (EmployeeForm.SaveEvent.class, this::saveEmployee);
+        form.addListener (EmployeeForm.DeleteEvent.class, this::deleteEmployee);
+        form.addListener (EmployeeForm.CloseEvent.class, e-> closeEditor ());
 
        // configureForm();
         FlexLayout content = new FlexLayout(grid, form);
@@ -57,31 +57,21 @@ public class PersonsView extends VerticalLayout {
         updateList();
         closeEditor ();
         grid.asSingleSelect().addValueChangeListener(event ->
-                editPerson (event.getValue()));
+                editEmployee (event.getValue()));
     }
-
-//    private Component getContent() {
-//
-//        HorizontalLayout content = new HorizontalLayout (grid, form);
-//        content.setFlexGrow (2,grid);
-//        content.setFlexGrow (1,form);
-//        content.addClassName ("content");
-//        content.setSizeFull ();
-//        return content;
-//    }
 
     private void updateList() {
-        grid.setItems (personService.findAll (filterText.getValue ()));
+        grid.setItems (employeeService.findAll (filterText.getValue ()));
     }
 
-    private void deletePerson(PersonForm.DeleteEvent event) {
-        personService.deletePerson (event.getPerson ());
+    private void deleteEmployee(EmployeeForm.DeleteEvent event) {
+        employeeService.deleteEmployee (event.getEmployee ());
         updateList ();
         closeEditor ();
     }
 
-    private void savePerson(PersonForm.SaveEvent event) {
-        personService.addPerson (event.getPerson ());
+    private void saveEmployee(EmployeeForm.SaveEvent event) {
+        employeeService.addEmployee (event.getEmployee ());
         updateList ();
         closeEditor ();
     }
@@ -92,41 +82,39 @@ public class PersonsView extends VerticalLayout {
         filterText.setValueChangeMode (ValueChangeMode.LAZY);
         filterText.addValueChangeListener (e-> updateList ());
 
-        Button addPersonBtn = new Button ("Add Person");
-        addPersonBtn.addClickListener (e -> addPerson ());
+        Button addPersonBtn = new Button ("Add Employee");
+        addPersonBtn.addClickListener (e -> addEmployee ());
 
         HorizontalLayout toolbar = new HorizontalLayout (filterText, addPersonBtn);
         toolbar.addClassName ("toolbar");
         return toolbar;
     }
 
-    private void addPerson() {
+    private void addEmployee() {
         grid.asSingleSelect ().clear ();
-        editPerson (new Person ());
+        editEmployee (new Employee ());
     }
 
-    private void editPerson(Person person) {
-        if (person == null) {
+    private void editEmployee(Employee employee) {
+        if (employee == null) {
             closeEditor ();
         } else {
-            form.setPerson (person);
+            form.setEmployee (employee);
             form.setVisible (true);
             addClassName ("editing");
         }
     }
 
     private void closeEditor() {
-        form.setPerson (null);
+        form.setEmployee (null);
         form.setVisible (false);
         removeClassName ("editing");
     }
 
     private void configureGrid() {
-        grid.addClassName ("person-grid");
+        grid.addClassName ("employee-grid");
         grid.setSizeFull ();
         grid.setColumns ("firstName", "lastName", "email", "phone", "dateOfBirth", "occupation");
         grid.getColumns ().forEach(col ->col.setAutoWidth(true));
-        //grid.asSingleSelect ().addValueChangeListener (e -> editPerson (e.getValue ()));
-
     }
 }

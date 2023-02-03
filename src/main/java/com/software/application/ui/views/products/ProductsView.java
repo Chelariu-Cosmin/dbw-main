@@ -1,4 +1,4 @@
-package com.software.application.views.products;
+package com.software.application.ui.views.products;
 
 import com.software.application.MainLayout;
 import com.software.application.data.entity.dto.ProductDTO;

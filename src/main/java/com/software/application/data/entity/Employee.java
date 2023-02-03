@@ -1,20 +1,21 @@
 package com.software.application.data.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer extends Person {
+public class Employee extends Person{
 
-    @Size(max = 255)
-    private String details;
+    private LocalDate dateOfBirth;
+
+    @NotEmpty
+    private String occupation;
 }

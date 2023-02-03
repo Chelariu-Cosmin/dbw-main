@@ -1,6 +1,6 @@
-package com.software.application.views.persons;
+package com.software.application.ui.views.employees;
 
-import com.software.application.data.entity.Person;
+import com.software.application.data.entity.Employee;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -16,9 +16,9 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
-public class PersonForm extends FormLayout {
+public class EmployeeForm extends FormLayout {
 
-    private Person person;
+    private Employee employee;
 
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
@@ -26,13 +26,13 @@ public class PersonForm extends FormLayout {
     TextField phone = new TextField("Phone");
     DatePicker dateOfBirth = new DatePicker ("DateOfBirth");
     TextField occupation = new TextField("Occupation");
-    Binder<Person> binder = new BeanValidationBinder<> (Person.class);
+    Binder<Employee> binder = new BeanValidationBinder<> (Employee.class);
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
-    public PersonForm() {
+    public EmployeeForm() {
         addClassName ("person-form");
         binder.bindInstanceFields (this);
 
@@ -55,7 +55,7 @@ public class PersonForm extends FormLayout {
         close.addClickShortcut (Key.ESCAPE);
 
         save.addClickListener (event-> validateAndSave());
-        delete.addClickListener (event -> fireEvent (new DeleteEvent (this, person)));
+        delete.addClickListener (event -> fireEvent (new DeleteEvent (this, employee)));
         close.addClickListener (even -> fireEvent (new CloseEvent (this)));
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
@@ -63,50 +63,50 @@ public class PersonForm extends FormLayout {
         return new HorizontalLayout (save,delete,close);
     }
 
-    public void setPerson(Person person){
-        this.person = person;
-        binder.readBean(person);
+    public void setEmployee(Employee employee){
+        this.employee = employee;
+        binder.readBean(employee);
     }
 
     private void validateAndSave() {
         try {
-            binder.writeBean (person);
-            fireEvent (new SaveEvent (this, person));
+            binder.writeBean (employee);
+            fireEvent (new SaveEvent (this, employee));
         } catch (ValidationException e) {
             e.printStackTrace ();
         }
     }
 
     // Events
-    public static abstract class PersonFormEvent extends ComponentEvent<PersonForm> {
+    public static abstract class EmployeeFormEvent extends ComponentEvent<EmployeeForm> {
 
-        private final Person person;
+        private final Employee employee;
 
-        protected PersonFormEvent(PersonForm source, Person person) {
+        protected EmployeeFormEvent(EmployeeForm source, Employee employee) {
             super(source, false);
-            this.person = person;
+            this.employee = employee;
         }
 
-        public Person getPerson() {
-            return person;
-        }
-    }
-
-    public static class SaveEvent extends PersonFormEvent {
-        SaveEvent(PersonForm source, Person person) {
-            super(source, person);
+        public Employee getEmployee() {
+            return employee;
         }
     }
 
-    public static class DeleteEvent extends PersonFormEvent {
-        DeleteEvent(PersonForm source, Person person) {
-            super(source, person);
+    public static class SaveEvent extends EmployeeFormEvent {
+        SaveEvent(EmployeeForm source, Employee employee) {
+            super(source, employee);
+        }
+    }
+
+    public static class DeleteEvent extends EmployeeFormEvent {
+        DeleteEvent(EmployeeForm source, Employee employee) {
+            super(source, employee);
         }
 
     }
 
-    public static class CloseEvent extends PersonFormEvent {
-        CloseEvent(PersonForm source) {
+    public static class CloseEvent extends EmployeeFormEvent {
+        CloseEvent(EmployeeForm source) {
             super(source, null);
         }
     }

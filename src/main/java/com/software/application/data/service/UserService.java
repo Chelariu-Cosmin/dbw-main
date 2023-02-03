@@ -2,11 +2,13 @@ package com.software.application.data.service;
 
 import com.software.application.data.entity.User;
 import com.software.application.data.repositories.UserRepository;
+import com.software.application.security.SecurityConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +16,11 @@ public class UserService {
 
     private final UserRepository repository;
 
-    public UserService(UserRepository repository) {
+    private final SecurityConfiguration securityConfiguration;
+
+    public UserService(UserRepository repository, SecurityConfiguration securityConfiguration) {
         this.repository = repository;
+        this.securityConfiguration = securityConfiguration;
     }
 
     public Optional<User> get(Long id) {
@@ -26,8 +31,14 @@ public class UserService {
         return repository.save(entity);
     }
 
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public User register(User user) {
+        return repository.save(new User(user.getUsername (), user.getName (),
+                securityConfiguration.passwordEncoder ().encode (user.getHashedPassword ())));
+    }
+
+    public User delete(User user) {
+        repository.delete(user);
+        return null;
     }
 
     public Page<User> list(Pageable pageable) {
@@ -42,4 +53,7 @@ public class UserService {
         return (int) repository.count();
     }
 
+    public List<User> findAll() {
+        return repository.findAll ();
+    }
 }

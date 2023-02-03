@@ -12,6 +12,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.impl.form.factory.DefaultCrudFormFactory;
 import org.vaadin.crudui.layout.impl.HorizontalSplitCrudLayout;
@@ -24,32 +25,36 @@ import java.util.List;
 @RouteAlias(value = "adduser", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 @Uses(Icon.class)
-public class AddUserView extends VerticalLayout {
+public class UsersView extends VerticalLayout {
 
-    public AddUserView(UserService userService) {
+    public UsersView(UserService userService) {
 
         DefaultCrudFormFactory<User> formFactory = new DefaultCrudFormFactory<User> (User.class) {
+
+
             @Override
             protected void configureForm(FormLayout formLayout, List<HasValueAndElement> fields) {
                 Component nameField = (Component) fields.get (0);
                 formLayout.setColspan (nameField, 2);
             }
         };
-//        formFactory.setUseBeanValidation(true);
-//        formFactory.setVisibleProperties(
-//                "name","birthDate","email","salary","phoneNumber","maritalStatus","groups","active","mainGroup");
-//        formFactory.setVisibleProperties(
-//    CrudOperation.ADD,
-//            "name","birthDate","email","salary","phoneNumber","maritalStatus","groups","active","mainGroup",
-//            "password");
-//        formFactory.setFieldProvider("mainGroup",
-//                new ComboBoxProvider<>(groupService.findAll()));
-//        formFactory.setFieldProvider("groups",
-//                new CheckBoxGroupProvider<>(groupService.findAll()));
-//        formFactory.setFieldProvider("groups",
-//                new CheckBoxGroupProvider<>("Groups",groupService.findAll(),Group::getName));
-//        formFactory.setFieldProvider("mainGroup",
-//                new ComboBoxProvider<>("Main Group",groupService.findAll(),new TextRenderer<>(Group::getName),Group::getName));
+        formFactory.setUseBeanValidation(true);
+        formFactory.setVisibleProperties(
+                "username", "name", "hashedPassword","roles", "profilePicture");
+
+//        ComboBox<String> roles = new ComboBox<>();
+//        roles.getElement().setAttribute("colspan", "2");
+//        roles.setLabel("Roles");
+
+//        MultiSelectComboBox<Role> roles = new MultiSelectComboBox<> ();
+//        roles.setItems (Role.values ());
+//
+//        Binder<User> user = new Binder<>();
+//        user.bind (roles, User::getRoles, User::setRoles);
+
+        formFactory.setVisibleProperties(
+                CrudOperation.ADD,
+                "username", "name", "hashedPassword", "roles", "profilePicture");
 
         // crud instance
         GridCrud<User> crud = new GridCrud<> (User.class, new HorizontalSplitCrudLayout (), formFactory);
@@ -57,24 +62,20 @@ public class AddUserView extends VerticalLayout {
         crud.setUpdateOperationVisible (false);
 
         // grid configuration
-//        crud.getGrid ().
-//
-//            setColumns ("name", "birthDate", "maritalStatus", "email", "phoneNumber", "active");
-        crud.getGrid ().
+        crud.getGrid ().setColumns ("username", "name", "hashedPassword", "roles","profilePicture");
 
-            setColumnReorderingAllowed (true);
+        crud.getGrid ().setColumnReorderingAllowed (true);
 
         // layout configuration
         setSizeFull ();
 
         add (crud);
-
         // logic configuration
-//        crud.setOperations(
-//                ()->userService.findAll(),
-//    user ->userService.save(user),
-//    user ->userService.save(user),
-//    user ->userService.delete(user)
-//            );
+        crud.setOperations(
+                userService::findAll,
+                userService::register,
+                userService::register,
+                userService::delete
+            );
     }
 }

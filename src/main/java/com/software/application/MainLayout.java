@@ -8,7 +8,7 @@ import com.software.application.ui.views.about.AboutView;
 import com.software.application.ui.views.dashboard.DashboardView;
 import com.software.application.ui.views.employees.EmployeesView;
 import com.software.application.ui.views.products.ProductsView;
-import com.software.application.ui.views.user.AddUserView;
+import com.software.application.ui.views.user.UsersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -73,8 +73,8 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Dashboard", DashboardView.class, "lab la-dashcube"));
 
         }
-        if (accessChecker.hasAccess(AddUserView.class)) {
-            nav.addItem(new AppNavItem("AddUser", AddUserView.class, "lab la-user"));
+        if (accessChecker.hasAccess(UsersView.class)) {
+            nav.addItem(new AppNavItem("Users", UsersView.class, "lab la-user"));
 
         }
         if (accessChecker.hasAccess (EmployeesView.class)) {

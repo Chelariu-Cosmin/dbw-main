@@ -1,8 +1,9 @@
 package com.software.application.ui.views.employees;
 
 import com.software.application.MainLayout;
-import com.software.application.data.entity.Employee;
+import com.software.application.data.entity.dto.EmployeeDTO;
 import com.software.application.data.service.EmployeeService;
+import com.software.application.data.service.summary.IEmployee;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
@@ -23,9 +24,9 @@ import javax.annotation.security.RolesAllowed;
 @Uses(Icon.class)
 public class EmployeesView extends VerticalLayout {
 
-    Grid<Employee> grid = new Grid<> (Employee.class);
+    Grid<EmployeeDTO> grid = new Grid<> (EmployeeDTO.class);
     TextField filterText = new TextField();
-    private final EmployeeService employeeService;
+    private final IEmployee employeeService;
     EmployeeForm form;
 
     public EmployeesView(EmployeeService EmployeeService) {
@@ -82,20 +83,20 @@ public class EmployeesView extends VerticalLayout {
         filterText.setValueChangeMode (ValueChangeMode.LAZY);
         filterText.addValueChangeListener (e-> updateList ());
 
-        Button addPersonBtn = new Button ("Add Employee");
-        addPersonBtn.addClickListener (e -> addEmployee ());
+        Button addEmployeeBtn = new Button ("Add Employee");
+        addEmployeeBtn.addClickListener (e -> addEmployee ());
 
-        HorizontalLayout toolbar = new HorizontalLayout (filterText, addPersonBtn);
+        HorizontalLayout toolbar = new HorizontalLayout (filterText, addEmployeeBtn);
         toolbar.addClassName ("toolbar");
         return toolbar;
     }
 
     private void addEmployee() {
         grid.asSingleSelect ().clear ();
-        editEmployee (new Employee ());
+        editEmployee (new EmployeeDTO ());
     }
 
-    private void editEmployee(Employee employee) {
+    private void editEmployee(EmployeeDTO employee) {
         if (employee == null) {
             closeEditor ();
         } else {

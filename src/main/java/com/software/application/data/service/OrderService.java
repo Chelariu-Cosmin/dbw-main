@@ -1,10 +1,11 @@
-package com.software.application.data.service.summary;
+package com.software.application.data.service;
 
 import com.software.application.data.entity.Order;
 import com.software.application.data.entity.OrderState;
 import com.software.application.data.entity.User;
 import com.software.application.data.entity.summary.OrderSummary;
 import com.software.application.data.repositories.OrderRepository;
+import com.software.application.data.service.summary.IOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 @Service
-public class IOrderImpl implements IOrder {
+public class OrderService implements IOrder {
 
     private final OrderRepository orderRepository;
 
-    public IOrderImpl(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

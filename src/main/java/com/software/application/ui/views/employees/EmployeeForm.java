@@ -1,6 +1,6 @@
 package com.software.application.ui.views.employees;
 
-import com.software.application.data.entity.Employee;
+import com.software.application.data.entity.dto.EmployeeDTO;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -18,7 +18,7 @@ import com.vaadin.flow.shared.Registration;
 
 public class EmployeeForm extends FormLayout {
 
-    private Employee employee;
+    private EmployeeDTO employee;
 
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
@@ -26,7 +26,7 @@ public class EmployeeForm extends FormLayout {
     TextField phone = new TextField("Phone");
     DatePicker dateOfBirth = new DatePicker ("DateOfBirth");
     TextField occupation = new TextField("Occupation");
-    Binder<Employee> binder = new BeanValidationBinder<> (Employee.class);
+    Binder<EmployeeDTO> binder = new BeanValidationBinder<> (EmployeeDTO.class);
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -63,7 +63,7 @@ public class EmployeeForm extends FormLayout {
         return new HorizontalLayout (save,delete,close);
     }
 
-    public void setEmployee(Employee employee){
+    public void setEmployee(EmployeeDTO employee){
         this.employee = employee;
         binder.readBean(employee);
     }
@@ -80,26 +80,26 @@ public class EmployeeForm extends FormLayout {
     // Events
     public static abstract class EmployeeFormEvent extends ComponentEvent<EmployeeForm> {
 
-        private final Employee employee;
+        private final EmployeeDTO employee;
 
-        protected EmployeeFormEvent(EmployeeForm source, Employee employee) {
+        protected EmployeeFormEvent(EmployeeForm source, EmployeeDTO employee) {
             super(source, false);
             this.employee = employee;
         }
 
-        public Employee getEmployee() {
+        public EmployeeDTO getEmployee() {
             return employee;
         }
     }
 
     public static class SaveEvent extends EmployeeFormEvent {
-        SaveEvent(EmployeeForm source, Employee employee) {
+        SaveEvent(EmployeeForm source, EmployeeDTO employee) {
             super(source, employee);
         }
     }
 
     public static class DeleteEvent extends EmployeeFormEvent {
-        DeleteEvent(EmployeeForm source, Employee employee) {
+        DeleteEvent(EmployeeForm source, EmployeeDTO employee) {
             super(source, employee);
         }
 

@@ -1,30 +1,30 @@
 package com.software.application.data.mappers;
 
-import com.software.application.data.entity.Order;
-import com.software.application.data.entity.dto.OrderDTO;
+import com.software.application.data.entity.OrderItem;
+import com.software.application.data.entity.dto.OrderItemsDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderMapper {
+public class OrderItemMapper {
 
     private final ModelMapper modelMapper;
 
-    public OrderMapper(ModelMapper modelMapper) {
+    public OrderItemMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
-    public OrderDTO toDto(Order order){
+    public OrderItemsDto toDto(OrderItem orderItem){
         modelMapper.getConfiguration()
                    .setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper.map(order, OrderDTO.class);
+        return modelMapper.map(orderItem, OrderItemsDto.class);
 
     }
 
-    public Order toOrder(OrderDTO orderDTO){
+    public OrderItem toOrderItem(OrderItemsDto orderItemsDto){
         modelMapper.getConfiguration()
                    .setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper.map(orderDTO, Order.class);
+        return modelMapper.map(orderItemsDto, OrderItem.class);
     }
 }

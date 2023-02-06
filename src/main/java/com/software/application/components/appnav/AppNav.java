@@ -9,13 +9,6 @@ import com.vaadin.flow.dom.Element;
 
 import java.util.Optional;
 
-/**
- * A navigation menu with support for hierarchical and flat menus.
- * <p>
- * Items can be added using {@link #addItem(AppNavItem)} and hierarchy can be
- * created by adding {@link AppNavItem} instances to other {@link AppNavItem}
- * instances.
- */
 @JsModule("@vaadin-component-factory/vcf-nav")
 @Tag("vcf-nav")
 public class AppNav extends Component implements HasSize, HasStyle {
@@ -41,14 +34,12 @@ public class AppNav extends Component implements HasSize, HasStyle {
      *
      * @param appNavItems
      *            the menu item(s) to add
-     * @return the menu for chaining
      */
-    public AppNav addItem(AppNavItem... appNavItems) {
+    public void addItem(AppNavItem... appNavItems) {
         for (AppNavItem appNavItem : appNavItems) {
             getElement().appendChild(appNavItem.getElement());
         }
 
-        return this;
     }
 
     /**
@@ -85,7 +76,7 @@ public class AppNav extends Component implements HasSize, HasStyle {
      * @return the label or null if no label has been set
      */
     public String getLabel() {
-        return getExistingLabelElement().map(e -> e.getText()).orElse(null);
+        return getExistingLabelElement().map(Element::getText).orElse(null);
     }
 
     /**

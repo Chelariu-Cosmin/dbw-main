@@ -8,6 +8,7 @@ import com.software.application.ui.views.about.AboutView;
 import com.software.application.ui.views.dashboard.DashboardView;
 import com.software.application.ui.views.employees.EmployeesView;
 import com.software.application.ui.views.products.ProductsView;
+import com.software.application.ui.views.store.StoreFrontView;
 import com.software.application.ui.views.user.UsersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -25,9 +26,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import java.io.ByteArrayInputStream;
 import java.util.Optional;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 public class MainLayout extends AppLayout {
 
     private H2 viewTitle;
@@ -65,8 +63,6 @@ public class MainLayout extends AppLayout {
     }
 
     private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
         if (accessChecker.hasAccess(DashboardView.class)) {
@@ -85,10 +81,10 @@ public class MainLayout extends AppLayout {
             nav.addItem (new AppNavItem ("Inventory", ProductsView.class, "la la-columns"));
 
         }
-//        if (accessChecker.hasAccess(StoreFrontView.class)) {
-//            nav.addItem(new AppNavItem("Store-Front", StoreFrontView.class, "la la-columns"));
-//
-//        }
+        if (accessChecker.hasAccess (StoreFrontView.class)) {
+            nav.addItem (new AppNavItem ("Store-Front", StoreFrontView.class, "la la-columns"));
+
+        }
         if (accessChecker.hasAccess (AboutView.class)) {
             nav.addItem (new AppNavItem ("About", AboutView.class, "la la-laugh"));
 

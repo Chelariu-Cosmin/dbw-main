@@ -74,12 +74,15 @@ public class ProductsView extends VerticalLayout implements BeforeEnterObserver 
                 .setFlexGrow(1).setKey("stock");
 
         // form configuration
-       crud.getCrudFormFactory().setUseBeanValidation(true);
-        crud.getCrudFormFactory().setVisibleProperties(
-                "codProduct", "name", "category", "description", "price", "unitMeasure, stockCount", "availability");
-        crud.getCrudFormFactory().setVisibleProperties(
-                CrudOperation.ADD
-                , "name", "category", "description", "price", "unitMeasure", "stockCount", "availability");
+       crud.getCrudFormFactory ()
+           .setUseBeanValidation (true);
+        crud.getCrudFormFactory ()
+            .setVisibleProperties (
+                    "codProduct", "name", "category", "description", "price", "unitMeasure", "stockCount", "availability");
+        crud.getCrudFormFactory ()
+            .setVisibleProperties (
+                    CrudOperation.ADD
+                    , "name", "category", "description", "price", "unitMeasure", "stockCount", "availability");
 
         add (crud);
         setSizeFull ();

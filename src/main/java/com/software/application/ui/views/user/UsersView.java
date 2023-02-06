@@ -21,15 +21,15 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @PageTitle("AddUser")
-@Route(value = "adduser", layout = MainLayout.class)
-@RouteAlias(value = "adduser", layout = MainLayout.class)
+@Route(value = "users", layout = MainLayout.class)
+@RouteAlias(value = "users", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 @Uses(Icon.class)
 public class UsersView extends VerticalLayout {
 
     public UsersView(UserService userService) {
 
-        DefaultCrudFormFactory<User> formFactory = new DefaultCrudFormFactory<User> (User.class) {
+        DefaultCrudFormFactory<User> formFactory = new DefaultCrudFormFactory<> (User.class) {
 
 
             @Override

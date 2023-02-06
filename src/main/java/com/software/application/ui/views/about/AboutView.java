@@ -1,34 +1,22 @@
 package com.software.application.ui.views.about;
 
 import com.software.application.MainLayout;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.software.application.data.entity.dto.CustomerDTO;
+import com.software.application.data.service.CustomerService;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.gridpro.GridPro;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 @PageTitle("About")
 @Route(value = "", layout = MainLayout.class)
 @PermitAll
-public class AboutView extends VerticalLayout {
+public class AboutView extends Div {
 
     public AboutView() {
-        setSpacing(false);
-
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
-        img.setWidth("200px");
-        add(img);
-
-        add(new H2("This place intentionally left empty"));
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
-
-        setSizeFull();
-        setJustifyContentMode(JustifyContentMode.CENTER);
-        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-        getStyle().set("text-align", "center");
     }
-
 }

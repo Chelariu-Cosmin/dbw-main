@@ -1,12 +1,12 @@
 package com.software.application.data.service;
 
-import com.software.application.data.entity.Order;
-import com.software.application.data.entity.OrderState;
-import com.software.application.data.entity.User;
+import com.software.application.data.entity.*;
 import com.software.application.data.entity.dto.PlaceOrderDto;
 import com.software.application.data.entity.summary.OrderSummary;
+import com.software.application.data.mappers.ProductMapper;
 import com.software.application.data.repositories.OrderItemsRepository;
 import com.software.application.data.repositories.OrderRepository;
+import com.software.application.data.repositories.ProductRepository;
 import com.software.application.data.service.summary.IOrder;
 import com.software.application.data.service.summary.IOrderItems;
 import org.springframework.stereotype.Service;
@@ -24,14 +24,23 @@ public class OrderService implements IOrder, IOrderItems {
 
     private final OrderRepository orderRepository;
     private final OrderItemsRepository orderItemsRepository;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
-    public OrderService(OrderRepository orderRepository, OrderItemsRepository orderItemsRepository) {
+    public OrderService(OrderRepository orderRepository, OrderItemsRepository orderItemsRepository, ProductRepository productRepository, ProductMapper productMapper) {
         this.orderRepository = orderRepository;
         this.orderItemsRepository = orderItemsRepository;
+        this.productRepository = productRepository;
+        this.productMapper = productMapper;
     }
 
     private static final Set<OrderState> notAvailableStates = Collections.unmodifiableSet(
             EnumSet.complementOf(EnumSet.of(OrderState.DELIVERED, OrderState.READY, OrderState.CANCELLED)));
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll ();
+    }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -61,6 +70,19 @@ public class OrderService implements IOrder, IOrderItems {
     }
 
     @Override
+    public OrderItem addProductToOrder(Long orderId, Long productId, Integer quantity) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Product product = productRepository.findById(productId).orElse(null);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(order);
+        orderItem.setProduct(product);
+        orderItem.setQuantityOnHand (quantity);
+
+        return orderItemsRepository.save(orderItem);
+    }
+
+    @Override
     public Order addComment(User currentUser, Order order, String comment) {
         return null;
     }
@@ -75,5 +97,10 @@ public class OrderService implements IOrder, IOrderItems {
         PlaceOrderDto placeOrderDto = new PlaceOrderDto();
         placeOrderDto.setCustomerId (customerId);
         placeOrderDto.setTotalPrice(placeOrderDto.getTotalPrice ());
+    }
+
+    @Override
+    public void cancelOrder(Order order) {
+        orderRepository.delete (order);
     }
 }

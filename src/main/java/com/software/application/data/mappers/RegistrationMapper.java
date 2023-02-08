@@ -1,8 +1,6 @@
 package com.software.application.data.mappers;
 
-import com.software.application.data.entity.Employee;
 import com.software.application.data.entity.User;
-import com.software.application.data.entity.dto.EmployeeDTO;
 import com.software.application.data.entity.dto.RegistrationDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

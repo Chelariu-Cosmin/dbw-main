@@ -9,6 +9,8 @@ import java.util.function.BiConsumer;
 
 public interface IOrder {
 
+    List<Order> findAll();
+
     Order saveOrder(User currentUser, Long id, BiConsumer<User, Order> orderFiller);
 
     Order addOrder(Order order);
@@ -18,4 +20,6 @@ public interface IOrder {
     List<OrderSummary> findAnyMatchingStartingToday();
 
     void placeOrder(long customerId);
+
+    void cancelOrder(Order order);
 }

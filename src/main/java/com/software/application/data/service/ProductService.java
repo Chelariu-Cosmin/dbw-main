@@ -31,6 +31,10 @@ public class ProductService implements IProduct {
                                 .collect(Collectors.toList());
     }
 
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
     @Override
     public ProductDTO addProduct(ProductDTO productDto) {
 

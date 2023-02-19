@@ -3,17 +3,22 @@ package com.software.application.ui.views.products;
 import com.software.application.MainLayout;
 import com.software.application.data.entity.dto.ProductDTO;
 import com.software.application.data.service.summary.IProduct;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
+import org.vaadin.haijian.Exporter;
 
 import javax.annotation.security.PermitAll;
 import java.text.DecimalFormat;
@@ -33,7 +38,19 @@ public class ProductsView extends VerticalLayout implements BeforeEnterObserver 
         TextField filter = new TextField();
         filter.setPlaceholder("Filter by name");
         filter.setClearButtonVisible(true);
-        crud.getCrudLayout().addFilterComponent(filter);
+
+        Anchor anchorXLSX = new Anchor (new StreamResource ("Products.xlsx",
+                Exporter.exportAsExcel (crud.getGrid ())), "Download As XLSX");
+        anchorXLSX.getElement ()
+                  .setAttribute ("download", true);
+
+        Anchor anchorCSV = new Anchor (new StreamResource ("Products.csv",
+                Exporter.exportAsCSV (crud.getGrid ())), "Download As CSV");
+        anchorCSV.getElement ()
+                 .setAttribute ("download", true);
+        //
+       // HorizontalLayout toolbar = new HorizontalLayout (filter, );
+        crud.getCrudLayout().addFilterComponents(filter, anchorXLSX, anchorCSV);
 
         final DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMaximumFractionDigits(2);

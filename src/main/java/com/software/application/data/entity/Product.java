@@ -44,4 +44,13 @@ public class Product implements Serializable {
 
     @NotNull
     private Availability availability = Availability.COMING;
+
+    public Product(String name, Integer price, String category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(String firstName, String lastName, int numberBetween, Double price) {
+    }
 }

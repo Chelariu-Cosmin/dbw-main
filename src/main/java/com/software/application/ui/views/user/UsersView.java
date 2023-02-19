@@ -7,15 +7,18 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.StreamResource;
 import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.impl.form.factory.DefaultCrudFormFactory;
 import org.vaadin.crudui.layout.impl.HorizontalSplitCrudLayout;
+import org.vaadin.haijian.Exporter;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
@@ -68,8 +71,12 @@ public class UsersView extends VerticalLayout {
 
         // layout configuration
         setSizeFull ();
+        Anchor anchorXLSX = new Anchor (new StreamResource ("Users.xlsx",
+                Exporter.exportAsExcel (crud.getGrid ())), "Download Excel");
+        anchorXLSX.getElement ()
+                  .setAttribute ("download", true);
 
-        add (crud);
+        add (crud, anchorXLSX);
         // logic configuration
         crud.setOperations(
                 userService::findAll,

@@ -32,4 +32,5 @@ public class ProductDTO {
     private int stockCount = 0;
 
     private Availability availability = Availability.COMING;
+
 }

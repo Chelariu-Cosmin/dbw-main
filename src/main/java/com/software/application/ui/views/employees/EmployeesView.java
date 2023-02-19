@@ -7,6 +7,7 @@ import com.software.application.data.service.summary.IEmployee;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -15,6 +16,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
+import org.vaadin.haijian.Exporter;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -80,13 +83,23 @@ public class EmployeesView extends VerticalLayout {
     private HorizontalLayout getToolbar() {
         filterText.setPlaceholder ("Filter by name...");
         filterText.setClearButtonVisible (true);
+        Anchor anchorXLSX = new Anchor (new StreamResource ("Employees.xlsx",
+                Exporter.exportAsExcel (grid)), "Download As XLSX");
+        anchorXLSX.getElement ()
+                  .setAttribute ("download", true);
+
+        Anchor anchorCSV = new Anchor (new StreamResource ("Employees.csv",
+                Exporter.exportAsCSV (grid)), "Download As CSV");
+        anchorCSV.getElement ()
+                 .setAttribute ("download", true);
+
         filterText.setValueChangeMode (ValueChangeMode.LAZY);
         filterText.addValueChangeListener (e-> updateList ());
 
         Button addEmployeeBtn = new Button ("Add Employee");
         addEmployeeBtn.addClickListener (e -> addEmployee ());
 
-        HorizontalLayout toolbar = new HorizontalLayout (filterText, addEmployeeBtn);
+        HorizontalLayout toolbar = new HorizontalLayout (filterText, addEmployeeBtn, anchorXLSX, anchorCSV);
         toolbar.addClassName ("toolbar");
         return toolbar;
     }

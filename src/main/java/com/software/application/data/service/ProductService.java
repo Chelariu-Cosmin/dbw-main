@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProductService implements IProduct {
@@ -33,6 +34,11 @@ public class ProductService implements IProduct {
 
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Stream<ProductDTO> findStreems() {
+        return productRepository.findAll ().stream ().map (productMapper::toDto);
     }
 
     @Override

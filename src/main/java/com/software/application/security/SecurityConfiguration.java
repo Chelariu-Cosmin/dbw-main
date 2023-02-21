@@ -13,6 +13,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends VaadinWebSecurity {
+    private static final String LOGIN_URL = "/login";
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -25,6 +26,11 @@ public class SecurityConfiguration extends VaadinWebSecurity {
         http.authorizeRequests().requestMatchers(new AntPathRequestMatcher("/images/*.png"),
                 (new AntPathRequestMatcher("/images/*.jpg"))).permitAll();
         super.configure(http);
+        http.oauth2Login ().loginPage (LOGIN_URL).permitAll ()
+                .and ()
+                        .formLogin ().loginPage (LOGIN_URL).permitAll ();
+
+        //VS
         setLoginView(http, LoginView.class);
     }
 

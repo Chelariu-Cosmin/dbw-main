@@ -4,11 +4,10 @@ import com.software.application.components.appnav.AppNav;
 import com.software.application.components.appnav.AppNavItem;
 import com.software.application.data.entity.User;
 import com.software.application.security.AuthenticatedUser;
-import com.software.application.ui.views.about.AboutView;
+import com.software.application.ui.views.documents.DocumentsView;
 import com.software.application.ui.views.dashboard.DashboardView;
 import com.software.application.ui.views.employees.EmployeesView;
 import com.software.application.ui.views.products.ProductsView;
-import com.software.application.ui.views.store.StoreFrontView;
 import com.software.application.ui.views.user.UsersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -81,12 +80,12 @@ public class MainLayout extends AppLayout {
             nav.addItem (new AppNavItem ("Inventory", ProductsView.class, "la la-columns"));
 
         }
-        if (accessChecker.hasAccess (StoreFrontView.class)) {
-            nav.addItem (new AppNavItem ("Store-Front", StoreFrontView.class, "la la-columns"));
-
-        }
-        if (accessChecker.hasAccess (AboutView.class)) {
-            nav.addItem (new AppNavItem ("About", AboutView.class, "la la-laugh"));
+//        if (accessChecker.hasAccess (OrderView.class)) {
+//            nav.addItem (new AppNavItem ("Store-Front", OrderView.class, "la la-columns"));
+//
+//        }
+        if (accessChecker.hasAccess (DocumentsView.class)) {
+            nav.addItem (new AppNavItem ("Documents", DocumentsView.class, "la la-laugh"));
 
         }
 
